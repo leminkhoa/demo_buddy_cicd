@@ -1,0 +1,26 @@
+- pipeline: "test_repo"
+  on: "EVENT"
+  events:
+  - type: "PUSH"
+    refs:
+    - "refs/heads/master"
+  priority: "HIGH"
+  fail_on_prepare_env_warning: true
+  actions:
+  - action: "Execute: Run test cases"
+    type: "BUILD"
+    working_directory: "/buddy/test-buddy"
+    docker_image_name: "library/python"
+    docker_image_tag: "3.9.3"
+    execute_commands:
+    - "pip install --upgrade pip"
+    - "pip install -r requirements.txt"
+    - "pytest -m difficult_operation"
+    - "pytest -m easy_operation"
+    - "pytest -v tests/mymodule/test_additions.py"
+    - "python main.py"
+    cached_dirs:
+    - "/root/.cache/pip"
+    volume_mappings:
+    - "/:/buddy/test-buddy"
+    shell: "BASH"
