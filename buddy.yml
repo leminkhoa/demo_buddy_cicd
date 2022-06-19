@@ -3,7 +3,7 @@
   events:
   - type: "PUSH"
     refs:
-    - "refs/heads/master"
+    - "refs/heads/main"
   priority: "HIGH"
   fail_on_prepare_env_warning: true
   actions:
